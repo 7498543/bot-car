@@ -1,0 +1,9 @@
+# OTA 双分区表 - 4MB Flash
+# 说明: 两个 OTA 分区(ota_0/ota_1)互为备份，升级时写入非活跃分区，
+# 校验通过后切换启动分区；失败则自动回滚至原分区，防变砖。
+# Name,      Type, SubType,  Offset,   Size,      Flags
+nvs,         data, nvs,      0x9000,   0x6000,
+otadata,     data, ota,      0xf000,   0x2000,
+phy_init,    data, phy,      0x11000,  0x1000,
+ota_0,       app,  ota_0,    0x20000,  0x1E0000,
+ota_1,       app,  ota_1,    0x200000, 0x1E0000,

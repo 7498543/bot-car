@@ -1,0 +1,55 @@
+# Git 忽略规则
+
+# 构建输出 
+build/
+sdkconfig
+sdkconfig.old
+*.bin
+*.elf
+*.map
+*.hex
+*.lst
+*.o
+*.d
+*.a
+*.gcno
+*.gcda
+
+# ESP-IDF 生成文件 
+managed_components/
+dependencies.lock
+flasher_args.json
+*.cmake
+!CMakeLists.txt
+
+# 编译产物 
+*.pyc
+__pycache__/
+*.pyo
+
+# IDE / 编辑器 
+# .vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.suo
+*.user
+*.sln
+*.vcxproj
+*.vcxproj.filters
+.DS_Store
+Thumbs.db
+
+# 环境变量 
+.env
+.env.local
+
+# 日志文件 
+*.log
+
+# 临时文件 
+tmp/
+temp/
+*.tmp
+*.bak

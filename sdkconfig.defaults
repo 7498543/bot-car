@@ -1,0 +1,67 @@
+# SDK 默认配置
+# 使用方式: idf.py set-target esp32 && idf.py build
+
+# -------------------- FreeRTOS --------------------
+CONFIG_FREERTOS_HZ=1000
+CONFIG_FREERTOS_USE_TRACE_FACILITY=n
+CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS=n
+
+# -------------------- 分区表 --------------------
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+CONFIG_PARTITION_TABLE_FILENAME="partitions.csv"
+
+# -------------------- LVGL 图形库 --------------------
+CONFIG_LV_CONF_SKIP=y
+CONFIG_LV_COLOR_DEPTH=16
+CONFIG_LV_COLOR_16_SWAP=n
+CONFIG_LV_MEM_SIZE_KILOBYTES=64
+CONFIG_LV_USE_PERF_MONITOR=n
+CONFIG_LV_USE_LOG=n
+CONFIG_LV_TICK_CUSTOM=y
+CONFIG_LV_TICK_CUSTOM_INCLUDE="freertos/FreeRTOS.h"
+CONFIG_LV_TICK_CUSTOM_SYS_TIME_EXPR="(xTaskGetTickCount() * portTICK_PERIOD_MS)"
+
+# -------------------- SPI 总线 (屏幕) --------------------
+CONFIG_SPI_MASTER_IN_IRAM=n
+CONFIG_SPI_MASTER_ISR_IN_IRAM=n
+
+# -------------------- I2C 总线 (电源监测) --------------------
+CONFIG_I2C_ISR_IN_IRAM=n
+
+# -------------------- WiFi --------------------
+CONFIG_ESP_WIFI_STA=y
+CONFIG_ESP_WIFI_SOFTAP=n
+CONFIG_ESP_WIFI_AUTH_OPEN=y
+CONFIG_ESP_WIFI_AUTH_WPA2_PSK=y
+
+# -------------------- BLE --------------------
+CONFIG_BT_ENABLED=y
+CONFIG_BT_BLE_ENABLED=y
+CONFIG_BT_CLASSIC_ENABLED=n
+CONFIG_BT_BLE_42_FEATURES_SUPPORTED=y
+CONFIG_BT_LE_MAX_CONNECTIONS=2
+
+# -------------------- NVS 存储 --------------------
+CONFIG_NVS_ENCRYPTION=n
+
+# -------------------- OTA 升级 --------------------
+CONFIG_APP_BUILD_BOOTLOADER=y
+CONFIG_APP_ROLLBACK_ENABLE=y
+CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE=y
+CONFIG_BOOTLOADER_SKIP_VALIDATE_IN_DEEP_SLEEP=n
+
+# -------------------- 日志级别 --------------------
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+CONFIG_LOG_MAXIMUM_LEVEL_INFO=y
+
+# -------------------- 看门狗 --------------------
+CONFIG_ESP_TASK_WDT=y
+CONFIG_ESP_TASK_WDT_TIMEOUT_S=5
+CONFIG_ESP_TASK_WDT_PANIC=y
+
+# -------------------- 编译优化 --------------------
+CONFIG_COMPILER_OPTIMIZATION_SIZE=y
+CONFIG_COMPILER_OPTIMIZATION_ASSERTIONS_ENABLE=n
+CONFIG_COMPILER_STACK_CHECK_MODE_NONE=n
+CONFIG_COMPILER_WARN_WRITE_STRINGS=n

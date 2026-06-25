@@ -130,6 +130,9 @@ esp_err_t app_main_init(void)
     nvs_mgr_init();
     ota_mgr_init(ota_progress_handler);
 
+    /* OTA 防变砖: 确认当前固件有效，取消自动回滚定时器 */
+    ota_mgr_confirm();
+
     /* WiFi 初始化 (非阻塞，后台连接) */
     wifi_mgr_init(wifi_state_handler);
     char ssid[32] = {0}, pass[64] = {0};

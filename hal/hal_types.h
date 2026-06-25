@@ -45,6 +45,13 @@ typedef struct {
     uint8_t reserved : 4;
 } ir_track_state_t;
 
+/* 小车运行模式 (LVGL UI 和控制逻辑共享) */
+typedef enum {
+    CAR_MODE_REMOTE  = 0,  /* 遥控模式 */
+    CAR_MODE_TRACK   = 1,  /* 循迹模式 */
+    CAR_MODE_AVOID   = 2,  /* 避障模式 */
+} car_mode_t;
+
 #ifdef __cplusplus
 }
 #endif

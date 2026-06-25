@@ -11,7 +11,7 @@
 #define LVGL_UI_H
 
 #include "esp_err.h"
-#include "comm_proto.h"
+#include "hal_types.h"
 
 #ifdef __cplusplus
 extern "C" {

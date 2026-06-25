@@ -66,17 +66,11 @@ extern "C" {
 #define DISPLAY_BL_PWM_CHANNEL   LEDC_CHANNEL_2
 #define DISPLAY_BL_PWM_TIMER     LEDC_TIMER_1
 
-/* ========================== 电源监测 (ADC + I2C 可选) ========================== */
+/* ========================== 电源监测 (ADC) ========================== */
 #define POWER_ADC_CHANNEL        ADC_CHANNEL_0  /* ADC1_CH0 -> GPIO36 */
 #define POWER_ADC_UNIT           ADC_UNIT_1
 #define POWER_ADC_ATTEN          ADC_ATTEN_DB_11
 #define POWER_VOLTAGE_DIVIDER    2.0f           /* 分压比 R1/(R1+R2) */
-
-/* I2C 电源管理 (可选, 如 INA219) */
-#define POWER_I2C_PORT           I2C_NUM_0
-#define POWER_I2C_SDA_GPIO       GPIO_NUM_21
-#define POWER_I2C_SCL_GPIO       GPIO_NUM_22
-#define POWER_I2C_FREQ_HZ        100000
 
 /* ========================== 状态 LED ========================== */
 #define LED_STATUS_GPIO          GPIO_NUM_12    /* 运行状态指示灯 */

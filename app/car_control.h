@@ -12,7 +12,7 @@
 #define CAR_CONTROL_H
 
 #include "hal_types.h"
-#include "comm_proto.h"
+#include "bt_mgr.h"
 #include "esp_err.h"
 
 #ifdef __cplusplus

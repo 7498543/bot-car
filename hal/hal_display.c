@@ -18,11 +18,6 @@ static const char *TAG = "hal_display";
 
 static esp_lcd_panel_handle_t s_panel = NULL;
 
-/* LVGL 显示缓冲区 (1/10 屏幕行，节省内存) */
-#define LVGL_BUF_SIZE (DISPLAY_WIDTH * 20)
-static lv_color_t s_disp_buf1[LVGL_BUF_SIZE];
-static lv_color_t s_disp_buf2[LVGL_BUF_SIZE];
-
 esp_err_t hal_display_init(void)
 {
     /* 初始化背光 PWM */
@@ -48,13 +43,17 @@ esp_err_t hal_display_init(void)
     /* 配置 SPI 总线 */
     spi_bus_config_t spi_cfg = {
         .mosi_io_num = DISPLAY_MOSI_GPIO,
-        .miso_io_num = -1,          /* 屏幕不需要 MISO */
+        .miso_io_num = -1,
         .sclk_io_num = DISPLAY_CLK_GPIO,
         .quadwp_io_num = -1,
         .quadhd_io_num = -1,
         .max_transfer_sz = DISPLAY_WIDTH * DISPLAY_HEIGHT * 2,
     };
     ESP_ERROR_CHECK(spi_bus_initialize(DISPLAY_SPI_HOST, &spi_cfg, SPI_DMA_CH_AUTO));
+
+    /* 创建 LCD SPI 总线句柄 */
+    esp_lcd_spi_bus_handle_t spi_bus = NULL;
+    ESP_ERROR_CHECK(esp_lcd_new_spi_bus((spi_host_device_t)DISPLAY_SPI_HOST, &spi_cfg, SPI_DMA_CH_AUTO, &spi_bus));
 
     /* 配置 LCD Panel IO */
     esp_lcd_panel_io_spi_config_t io_cfg = {
@@ -67,8 +66,7 @@ esp_err_t hal_display_init(void)
         .lcd_param_bits = 8,
     };
     esp_lcd_panel_io_handle_t io_handle = NULL;
-    ESP_ERROR_CHECK(esp_lcd_new_panel_io_spi((esp_lcd_spi_bus_handle_t)DISPLAY_SPI_HOST,
-                                              &io_cfg, &io_handle));
+    ESP_ERROR_CHECK(esp_lcd_new_panel_io_spi(spi_bus, &io_cfg, &io_handle));
 
     /* 创建 ST7789 Panel */
     esp_lcd_panel_dev_config_t panel_cfg = {

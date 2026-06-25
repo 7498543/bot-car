@@ -41,13 +41,20 @@ esp_err_t power_mgr_get_voltage(uint16_t *voltage_mv)
 
     /* 多次采样取平均，提高精度 */
     int raw = 0;
+    int valid_samples = 0;
     for (int i = 0; i < 8; i++) {
         int sample;
-        adc_oneshot_read(s_adc_handle, POWER_ADC_CHANNEL, &sample);
-        raw += sample;
+        esp_err_t ret = adc_oneshot_read(s_adc_handle, POWER_ADC_CHANNEL, &sample);
+        if (ret == ESP_OK) {
+            raw += sample;
+            valid_samples++;
+        }
         vTaskDelay(pdMS_TO_TICKS(1));
     }
-    raw /= 8;
+    if (valid_samples == 0) {
+        return ESP_ERR_INVALID_STATE;
+    }
+    raw /= valid_samples;
 
     /* 12bit ADC: 0-4095 -> 0-3.3V (实际量程受衰减影响) */
     float voltage = (float)raw / 4095.0f * 3.3f * POWER_VOLTAGE_DIVIDER;

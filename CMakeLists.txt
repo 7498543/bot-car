@@ -3,11 +3,8 @@
 cmake_minimum_required(VERSION 3.16)
 
 # 项目名称
-set(PROJECT_NAME "smart_car")
-include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-project(${PROJECT_NAME})
+set(PROJECT_NAME "car")
 
-# 注册组件目录（按依赖顺序：底层在前）
 # kernel: 引脚定义、电源管理
 # hal: 硬件抽象接口（依赖 kernel）
 # middleware: OTA/NVS/WiFi/BLE 服务（依赖 hal）
@@ -18,3 +15,6 @@ set(EXTRA_COMPONENT_DIRS
     ${CMAKE_SOURCE_DIR}/middleware
     ${CMAKE_SOURCE_DIR}/app
 )
+
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+project(${PROJECT_NAME})

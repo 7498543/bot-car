@@ -1,9 +1,34 @@
-# Git 忽略规则
-
 # 构建输出 
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Directory metadata
+.directory
+
+# Temporary files
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Log files
+*.log
+
+# Build artifacts and directories
+**/build/
 build/
 sdkconfig
 sdkconfig.old
+*.o
+*.a
+*.out
+*.exe # For any host-side utilities compiled on Windows
+
+# ESP-IDF specific build outputs
 *.bin
 *.elf
 *.map
@@ -16,40 +41,57 @@ sdkconfig.old
 *.gcda
 
 # ESP-IDF 生成文件 
+flasher_args.json # Generated in build directory
+sdkconfig.old
+sdkconfig
+
+# ESP-IDF dependencies
+# For older versions or manual component management
+/components/.idf/
+**/components/.idf/
+# For modern ESP-IDF component manager
 managed_components/
 dependencies.lock
 flasher_args.json
 *.cmake
 !CMakeLists.txt
 
+# If ESP-IDF tools are installed/referenced locally to the project
+.espressif/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+
 # 编译产物 
+# Python environment files
 *.pyc
-__pycache__/
 *.pyo
+*.pyd
+__pycache__/
+*.egg-info/
+dist/
 
-# IDE / 编辑器 
-# .vscode/
-.idea/
-*.swp
-*.swo
-*~
-*.suo
-*.user
-*.sln
-*.vcxproj
-*.vcxproj.filters
-.DS_Store
+# Virtual environment folders
+venv/
+.venv/
+env/
+
+# Language Servers
+.clangd/
+.ccls-cache/
+compile_commands.json
+
+# Windows specific
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-# 环境变量 
-.env
-.env.local
-
-# 日志文件 
-*.log
-
-# 临时文件 
-tmp/
-temp/
-*.tmp
-*.bak
+# User-specific configuration files
+*.user
+*.workspace # General workspace files, can be from various tools
+*.suo       # Visual Studio Solution User Options
+*.sln.docstates # Visual Studio
